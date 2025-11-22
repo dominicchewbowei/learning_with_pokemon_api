@@ -1,5 +1,9 @@
+body {
+    background-color: #FFFFFB;
+}
+
 header {
-    background-color: skyblue;
+    background-color: lightskyblue;
 }
 
 section {
