@@ -36,6 +36,7 @@ fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0", requestOptions)
           if (mapPokemonData[elementId].hasOwnProperty("jsonData")) {
             console.log(`pokemon #${elementId} has already fetched data.`);
             // load to ui
+            UpdatePokemonData(elementId);
           }
           else {
             fetch(mapPokemonData[elementId].apiUrl, requestOptions)
@@ -46,6 +47,7 @@ fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0", requestOptions)
                 mapPokemonData[elementId].jsonData = pokemonData;
                 loadingPokemon = false;
                 // load to ui
+                UpdatePokemonData(elementId);
               })
               .catch((error) => {
                 console.error(error);
@@ -63,3 +65,88 @@ fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0", requestOptions)
     }
   })
   .catch((error) => console.error(error));
+
+
+const UpdatePokemonData = (pokemonName) => {
+  if (!pokemonName.length)
+  {
+  }
+  else if (!mapPokemonData[pokemonName].hasOwnProperty("jsonData"))
+  {
+    console.log(`pokemon ${pokemonName} data is not ready`);
+  }
+  else
+  {
+    // update name
+    const jsonData = mapPokemonData[pokemonName].jsonData;
+
+    document.getElementById("pokemon-name").innerHTML = jsonData.name;
+
+    const pokemonStats = document.getElementById("pokemon-stats");
+    const pokemonPicture_back_default = document.getElementById("back_default");
+    const pokemonPicture_back_female = document.getElementById("back_female");
+    const pokemonPicture_back_shiny = document.getElementById("back_shiny");
+    const pokemonPicture_back_shiny_female = document.getElementById("back_shiny_female");
+    const pokemonPicture_front_default = document.getElementById("front_default");
+    const pokemonPicture_front_female = document.getElementById("front_female");
+    const pokemonPicture_front_shiny = document.getElementById("front_shiny");
+    const pokemonPicture_front_shiny_female = document.getElementById("front_shiny_female");
+    // update pictures
+    UpdatePokemonFigure(pokemonPicture_back_default, jsonData);
+    UpdatePokemonFigure(pokemonPicture_back_female, jsonData);
+    UpdatePokemonFigure(pokemonPicture_back_shiny, jsonData);
+    UpdatePokemonFigure(pokemonPicture_back_shiny_female, jsonData);
+    UpdatePokemonFigure(pokemonPicture_front_default, jsonData);
+    UpdatePokemonFigure(pokemonPicture_front_female, jsonData);
+    UpdatePokemonFigure(pokemonPicture_front_shiny, jsonData);
+    UpdatePokemonFigure(pokemonPicture_front_shiny_female, jsonData);
+    
+    // update type
+    let numberOfTypes = jsonData.types.length;
+    let displayStringTypes  = "";
+    if (numberOfTypes > 1)
+    {
+      displayStringTypes = "Types:";
+    }
+    else
+    {
+      displayStringTypes = "Type: ";
+    }
+    for (let i = 0; i < numberOfTypes; i++)
+    {
+      if (i > 0)
+      {
+        displayStringTypes += '\\';
+      }
+      displayStringTypes += jsonData.types[i].type.name;
+    }
+    document.getElementById("types").lastElementChild.innerHTML = displayStringTypes;
+
+    // update height and weight
+    document.getElementById("height").lastElementChild.innerHTML = jsonData.height;
+    document.getElementById("weight").lastElementChild.innerHTML = jsonData.weight;
+    
+    // update base stats
+    for (let i = 0; i < jsonData.stats.length; i++)
+    {
+      let statsName = jsonData.stats[i].stat.name;
+      document.getElementById(statsName).lastElementChild.innerHTML = jsonData.stats[i].base_stat;
+    }
+  }
+}
+
+  const UpdatePokemonFigure = (figureNode, jsonData) => {
+    let imageUrl = jsonData.sprites[figureNode.id];
+    figureNode.firstElementChild.src = imageUrl;
+    //const imgNode = figureNode.getElementsByTagName("img")[0];
+    //figureNode.getElementsByTagName("img")[0].src = imageUrl;
+    //imgNode.src = imageUrl;
+    if (imageUrl && imageUrl.length)
+    {
+      figureNode.classList.remove("hidden");
+    }
+    else
+    {
+      figureNode.classList.add("hidden");
+    }
+  }

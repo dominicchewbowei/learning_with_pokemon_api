@@ -18,3 +18,7 @@ footer {
     max-height: 70vh;
     overflow: scroll;
 }
+
+.hidden{
+  display: none;
+} 
