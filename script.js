@@ -132,6 +132,14 @@ const UpdatePokemonData = (pokemonName) => {
       let statsName = jsonData.stats[i].stat.name;
       document.getElementById(statsName).lastElementChild.innerHTML = jsonData.stats[i].base_stat;
     }
+    
+    // remove all active elements
+    const activeElementsBySelectorAll = document.querySelectorAll('li.active');
+    activeElementsBySelectorAll.forEach(element => {
+      element.classList.remove("active");
+    });
+    document.getElementById(pokemonName).className += "active";
+    pokemonStats.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 }
 
