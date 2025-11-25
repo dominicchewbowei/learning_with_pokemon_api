@@ -139,6 +139,7 @@ const UpdatePokemonData = (pokemonName) => {
       element.classList.remove("active");
     });
     document.getElementById(pokemonName).className += "active";
+    pokemonStats.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 }
 
