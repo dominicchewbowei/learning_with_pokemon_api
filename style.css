@@ -19,6 +19,11 @@ footer {
     overflow: scroll;
 }
 
-.hidden{
+.active {
+    font-size: 1.1rem;
+    background-color: goldenrod;
+}
+
+.hidden {
   display: none;
 } 
