@@ -109,14 +109,6 @@ const UpdatePokemonData = (pokemonName) => {
     // update type
     let numberOfTypes = jsonData.types.length;
     let displayStringTypes  = "";
-    if (numberOfTypes > 1)
-    {
-      displayStringTypes = "Types:";
-    }
-    else
-    {
-      displayStringTypes = "Type: ";
-    }
     for (let i = 0; i < numberOfTypes; i++)
     {
       if (i > 0)
