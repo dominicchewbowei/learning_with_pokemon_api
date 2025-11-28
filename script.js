@@ -51,6 +51,8 @@ fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0", requestOptions)
             console.log(`pokemon #${elementId} has already fetched data.`);
             // load to ui
             UpdatePokemonData(elementId);
+            // fix after double clicked loaded pokemon, will not load pokemon not loaded before
+            loadingPokemon = false;
           }
           else {
             fetch(mapPokemonData[elementId].apiUrl, requestOptions)
