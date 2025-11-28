@@ -19,8 +19,12 @@ footer {
     overflow: scroll;
 }
 
-.active {
+nav {
     font-size: 1.1rem;
+}
+
+.active {
+    font-size: 1.2rem;
     background-color: goldenrod;
 }
 
@@ -33,10 +37,19 @@ table {
     
     border: 3px solid #f0f0f0; /* This applies the outer border to the entire table */
     border-collapse: collapse; /* Optional: Collapses cell borders for a single line look */
+
+    font-size: 1.2rem;
+    font-weight: 550;
 }
+
 th, td {
     padding: 8px;
 }
+
+th {
+    font-weight: 600;
+}
+
 /* Left-align the first column (th and td) */
 th:nth-child(1),
 td:nth-child(1) {
@@ -110,5 +123,7 @@ section {
     table {
         width: 60%;
         justify-self: center;
+        
+        font-size: 1.2rem;
     }
 }
