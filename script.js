@@ -139,13 +139,14 @@ const UpdatePokemonData = (pokemonName) => {
     }
     
     // remove all active elements
-    const activeElementsBySelectorAll = document.querySelectorAll('li.active');
+    const activeElementsBySelectorAll = document.querySelectorAll('a.active');
     activeElementsBySelectorAll.forEach(element => {
       element.classList.remove("active");
     });
     document.getElementById(pokemonName).className += "active";
     figPokemonStats.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
+  window.getSelection().removeAllRanges();
 }
 
 const UpdatePokemonFigure = (figureNode, jsonData) => {
