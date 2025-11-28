@@ -146,9 +146,7 @@ const UpdatePokemonData = (pokemonName) => {
 const UpdatePokemonFigure = (figureNode, jsonData) => {
   let imageUrl = jsonData.sprites[figureNode.id];
   figureNode.firstElementChild.src = imageUrl;
-  //const imgNode = figureNode.getElementsByTagName("img")[0];
-  //figureNode.getElementsByTagName("img")[0].src = imageUrl;
-  //imgNode.src = imageUrl;
+  figureNode.firstElementChild.alt = `${jsonData.name} ${figureNode.id}`;
   if (imageUrl && imageUrl.length)
   {
     figureNode.classList.remove("hidden");
