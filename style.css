@@ -15,7 +15,7 @@ footer {
 }
 
 #pokemon-list{
-    max-height: 70vh;
+    max-height: 35vh;
     overflow: scroll;
 }
 
@@ -27,3 +27,88 @@ footer {
 .hidden {
   display: none;
 } 
+
+table {
+    width: 100%;
+    
+    border: 3px solid #f0f0f0; /* This applies the outer border to the entire table */
+    border-collapse: collapse; /* Optional: Collapses cell borders for a single line look */
+}
+th, td {
+    padding: 8px;
+}
+/* Left-align the first column (th and td) */
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: left;
+}
+/* Right-align the second column (th and td) */
+    th:nth-child(2),
+    td:nth-child(2) {
+    text-align: right;
+}
+
+#pokemon-pictures {
+    display: flex;
+    justify-content: space-around; /* Distributes space evenly */
+    gap: 20px; /* Adds space between the figures */
+    flex-wrap: wrap;
+}
+
+#pokemon-pictures figure {
+    flex: 1; /* Allows figures to grow and share available space equally */
+    max-width: 50%; /* Ensures they don't exceed half the container width */
+    /* Add additional styling as needed */
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+#pokemon-pictures img {
+    width: auto; /* Ensures natural scaling */
+    height: auto; /* Maintains aspect ratio */
+  
+  /* Constraint 1: Scales up to 50% more than the image's original (intrinsic) width.
+     This assumes you know the original width (e.g., 400px). 
+     If the container is larger than 600px (400px * 1.5), the image will stop growing. */
+  max-width: 150%; 
+
+  /* Constraint 2: Must be less than half the container's width.
+     The image's final displayed width cannot exceed 50% of its parent container. */
+  max-width: calc(50% - 1px); /* Subtracting 1px ensures it is strictly *less* than half */
+  
+  /* You may need to use 'min()' if both conditions are max-width, to apply the strictest one. */
+  /* max-width: min(150%, calc(50% - 1px)); */ 
+}
+
+/* Middle section wrapper */
+section {
+    display: flex;
+    flex: 1;
+    flex-direction: column; /* Mobile: stack vertically */
+    justify-content: space-around;
+}
+
+/* Large screens */
+@media (min-width: 768px) {
+    section {
+        flex-direction: row; /* Desktop: side by side */
+    }
+  
+    nav {
+        flex: 0 0 250px; /* Fixed width sidebar */
+    }
+    #pokemon-list{
+        max-height: 70vh;
+    }
+  
+    #pokemon-stats {
+        flex: 1; /* Flexible content area */
+        display: grid;
+    }
+  
+    table {
+        width: 60%;
+        justify-self: center;
+    }
+}
