@@ -139,7 +139,7 @@ const UpdatePokemonData = (pokemonName) => {
     }
     
     // remove all active elements
-    const activeElementsBySelectorAll = document.querySelectorAll('li.active');
+    const activeElementsBySelectorAll = document.querySelectorAll('a.active');
     activeElementsBySelectorAll.forEach(element => {
       element.classList.remove("active");
     });
