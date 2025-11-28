@@ -146,6 +146,7 @@ const UpdatePokemonData = (pokemonName) => {
     document.getElementById(pokemonName).className += "active";
     figPokemonStats.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
+  window.getSelection().removeAllRanges();
 }
 
 const UpdatePokemonFigure = (figureNode, jsonData) => {
