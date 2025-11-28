@@ -9,18 +9,32 @@ let data;
 
 let mapPokemonData = new Map();
 
+// HTML elements
+const divPokemonList                        = document.getElementById("pokemon-list");
+const trTypes                               = document.getElementById("types")
+const trHeight                              = document.getElementById("height");
+const trWeight                              = document.getElementById("weight");
+const figPokemonStats                       = document.getElementById("pokemon-stats");
+const figPokemonPicture_back_default        = document.getElementById("back_default");
+const figPokemonPicture_back_female         = document.getElementById("back_female");
+const figPokemonPicture_back_shiny          = document.getElementById("back_shiny");
+const figPokemonPicture_back_shiny_female   = document.getElementById("back_shiny_female");
+const figPokemonPicture_front_default       = document.getElementById("front_default");
+const figPokemonPicture_front_female        = document.getElementById("front_female");
+const figPokemonPicture_front_shiny         = document.getElementById("front_shiny");
+const figPokemonPicture_front_shiny_female  = document.getElementById("front_shiny_female");
+
 fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0", requestOptions)
   .then((response) => response.text())
   .then((result) => {
     data = JSON.parse(result);
     console.log(data.results.length);
-    const divElement = document.getElementById("pokemon-list");
     for (let i = 0; i < data.results.length; i++) {
       //console.log(`${data.results.name}`);
       const currentPokemonNode = document.createElement('a');
       currentPokemonNode.textContent = `#${String(i + 1).padStart(4, '0')} \t ${data.results[i].name}`;
       currentPokemonNode.id = `${data.results[i].name}`;
-      divElement.appendChild(currentPokemonNode);
+      divPokemonList.appendChild(currentPokemonNode);
 
       // add api url to map object
       mapPokemonData[data.results[i].name] = new Object();
@@ -61,7 +75,7 @@ fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0", requestOptions)
       })
 
       // append break after each pokemon
-      divElement.append(document.createElement('br'));
+      divPokemonList.append(document.createElement('br'));
     }
   })
   .catch((error) => console.error(error));
@@ -82,24 +96,15 @@ const UpdatePokemonData = (pokemonName) => {
 
     document.getElementById("pokemon-name").innerHTML = jsonData.name;
 
-    const pokemonStats = document.getElementById("pokemon-stats");
-    const pokemonPicture_back_default = document.getElementById("back_default");
-    const pokemonPicture_back_female = document.getElementById("back_female");
-    const pokemonPicture_back_shiny = document.getElementById("back_shiny");
-    const pokemonPicture_back_shiny_female = document.getElementById("back_shiny_female");
-    const pokemonPicture_front_default = document.getElementById("front_default");
-    const pokemonPicture_front_female = document.getElementById("front_female");
-    const pokemonPicture_front_shiny = document.getElementById("front_shiny");
-    const pokemonPicture_front_shiny_female = document.getElementById("front_shiny_female");
     // update pictures
-    UpdatePokemonFigure(pokemonPicture_back_default, jsonData);
-    UpdatePokemonFigure(pokemonPicture_back_female, jsonData);
-    UpdatePokemonFigure(pokemonPicture_back_shiny, jsonData);
-    UpdatePokemonFigure(pokemonPicture_back_shiny_female, jsonData);
-    UpdatePokemonFigure(pokemonPicture_front_default, jsonData);
-    UpdatePokemonFigure(pokemonPicture_front_female, jsonData);
-    UpdatePokemonFigure(pokemonPicture_front_shiny, jsonData);
-    UpdatePokemonFigure(pokemonPicture_front_shiny_female, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_back_default, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_back_female, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_back_shiny, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_back_shiny_female, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_front_default, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_front_female, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_front_shiny, jsonData);
+    UpdatePokemonFigure(figPokemonPicture_front_shiny_female, jsonData);
     
     // update type
     let numberOfTypes = jsonData.types.length;
@@ -120,11 +125,11 @@ const UpdatePokemonData = (pokemonName) => {
       }
       displayStringTypes += jsonData.types[i].type.name;
     }
-    document.getElementById("types").lastElementChild.innerHTML = displayStringTypes;
+    trTypes.lastElementChild.innerHTML = displayStringTypes;
 
     // update height and weight
-    document.getElementById("height").lastElementChild.innerHTML = jsonData.height;
-    document.getElementById("weight").lastElementChild.innerHTML = jsonData.weight;
+    trHeight.lastElementChild.innerHTML = jsonData.height;
+    trWeight.lastElementChild.innerHTML = jsonData.weight;
     
     // update base stats
     for (let i = 0; i < jsonData.stats.length; i++)
@@ -139,22 +144,22 @@ const UpdatePokemonData = (pokemonName) => {
       element.classList.remove("active");
     });
     document.getElementById(pokemonName).className += "active";
-    pokemonStats.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    figPokemonStats.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 }
 
-  const UpdatePokemonFigure = (figureNode, jsonData) => {
-    let imageUrl = jsonData.sprites[figureNode.id];
-    figureNode.firstElementChild.src = imageUrl;
-    //const imgNode = figureNode.getElementsByTagName("img")[0];
-    //figureNode.getElementsByTagName("img")[0].src = imageUrl;
-    //imgNode.src = imageUrl;
-    if (imageUrl && imageUrl.length)
-    {
-      figureNode.classList.remove("hidden");
-    }
-    else
-    {
-      figureNode.classList.add("hidden");
-    }
+const UpdatePokemonFigure = (figureNode, jsonData) => {
+  let imageUrl = jsonData.sprites[figureNode.id];
+  figureNode.firstElementChild.src = imageUrl;
+  //const imgNode = figureNode.getElementsByTagName("img")[0];
+  //figureNode.getElementsByTagName("img")[0].src = imageUrl;
+  //imgNode.src = imageUrl;
+  if (imageUrl && imageUrl.length)
+  {
+    figureNode.classList.remove("hidden");
   }
+  else
+  {
+    figureNode.classList.add("hidden");
+  }
+}
