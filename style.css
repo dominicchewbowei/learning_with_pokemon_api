@@ -10,10 +10,6 @@ section {
     background-color: cornsilk;
 }
 
-footer {
-    background-color: lightgrey;
-}
-
 #pokemon-list{
     max-height: 35vh;
     overflow: scroll;
@@ -126,4 +122,15 @@ section {
         
         font-size: 1.2rem;
     }
+}
+
+footer {
+    background-color: lightgrey;
+    text-align: center;
+}
+
+footer div {
+    display: flex;
+    justify-content: space-evenly; /* Evenly horizontally*/
+    align-items: center; /* Centers vertically */
 }
